@@ -12,6 +12,16 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vite.dev/config/
 export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler', // 或 'modern'
+      },
+    },
+  },
+  server: {
+    host: true,
+  },
   plugins: [
     tsconfigPaths({
       projects: ['./tsconfig.app.json'],
