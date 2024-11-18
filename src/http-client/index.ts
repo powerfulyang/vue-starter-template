@@ -1,33 +1,19 @@
 import type { Options } from 'ky'
+import { appendFormData } from '@/http-client/appendFormData'
 import log from '@/log'
-import { logRequest } from '@/log/logRequest'
+import { logRequest, logResponse } from '@/log/fetch'
 import ky from 'ky'
 
 const instance = ky.create({
   hooks: {
     beforeRequest: [
-      async (request) => {
-        const url = new URL(request.url)
-        // method
-        const method = request.method
-        const requestUrl = `${url.origin}${url.pathname}`
-        // params
-        const params = url.searchParams
-        // json
-        const cloned = request.clone()
-        const json = await cloned.json()
-        logRequest({
-          method,
-          url: requestUrl,
-          params,
-          json,
-        })
+      async (_request) => {
+        // TODO
       },
     ],
     afterResponse: [
-      async (_request, _options, response) => {
-        log.debug(`response: ok->${response.ok}`)
-        return response
+      async (_request, _options, _response) => {
+        // TODO
       },
     ],
   },
@@ -35,24 +21,31 @@ const instance = ky.create({
 
 interface RequestOptions extends Options {
   notifyErrorMessage?: boolean
+  debug?: boolean
 }
 
 export async function request<T>(url: string, options?: RequestOptions): Promise<T> {
   const {
     notifyErrorMessage = true,
+    debug = false,
     ...restOptions
   } = options || {}
+
   try {
     const response = await instance(url, {
       ...restOptions,
+      hooks: {
+        beforeRequest: debug ? [appendFormData(restOptions.body), logRequest] : [],
+        afterResponse: debug ? [logResponse] : [],
+      },
     })
     const responseType = response.headers.get('content-type')
     if (!response.ok) {
       if (responseType?.includes('application/json')) {
         const json = await response.json<{ error: string }>()
-        return Promise.reject(json.error)
+        return Promise.reject(new Error(json.error))
       }
-      return Promise.reject(new Error(`${response.statusText}`))
+      return Promise.reject(new Error(response.statusText))
     }
     if (responseType?.includes('application/json')) {
       return response.json()

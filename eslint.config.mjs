@@ -28,6 +28,7 @@ export default antfu(
     // rules
     rules: {
       'antfu/no-top-level-await': 'off',
+      'eslint-comments/no-unlimited-disable': 'off',
     },
   },
 )

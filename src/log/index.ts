@@ -2,4 +2,6 @@ import log from 'loglevel'
 
 log.setLevel('debug')
 
-export default log
+const logger = log
+
+export default logger
