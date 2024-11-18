@@ -1,20 +1,16 @@
 <script lang="ts" setup>
-import { request } from '@/http-client'
-import { useMutation } from '@tanstack/vue-query'
+import { usePostHello } from '@/orval/service'
 
-const { isPending, mutate } = useMutation({
-  mutationFn: () => {
-    return request('/api/hello', {
-      method: 'POST',
-      params: {
-        name: 'test',
-      },
-      data: {
-        name: 'test',
-      },
-    })
-  },
-})
+const { isPending, mutate } = usePostHello()
+
+function submit() {
+  mutate(
+    {
+      data: { name: 'hello body' },
+      params: { name: 'hello params' },
+    },
+  )
+}
 </script>
 
 <template>
@@ -37,7 +33,7 @@ const { isPending, mutate } = useMutation({
     >
       <div
         class="flex cursor-pointer items-center gap-2"
-        @click="mutate()"
+        @click="submit()"
       >
         <div
           v-if="isPending"

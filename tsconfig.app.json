@@ -6,9 +6,17 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*"],
+      "#/*": ["./*"]
+    },
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "openapi/*"
+  ],
   "exclude": ["src/**/__tests__/*"]
 }

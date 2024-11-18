@@ -3,6 +3,7 @@ import antfu from '@antfu/eslint-config'
 export default antfu(
   // options
   {
+    ignores: ['src/orval/*'],
     unocss: true,
     formatters: {
       /**
@@ -24,6 +25,9 @@ export default antfu(
     },
   },
   {
-  // rules
+    // rules
+    rules: {
+      'antfu/no-top-level-await': 'off',
+    },
   },
 )

@@ -30,3 +30,5 @@ coverage
 *.tsbuildinfo
 
 src/auto-typings/*
+src/orval/*
+!src/orval/.gitkeep

@@ -1,10 +1,7 @@
-import { http, HttpResponse } from 'msw'
+import type { RequestHandler } from 'msw'
+import openapi from '#/openapi/source.json'
+import { fromOpenApi } from '@mswjs/source/open-api'
 
-export default [
-  http.post('/api/hello', async () => {
-    await new Promise(resolve => setTimeout(resolve, 5000))
-    return HttpResponse.json({
-      message: 'Hello World',
-    })
-  }),
-]
+const handles: RequestHandler[] = await fromOpenApi(openapi)
+
+export default handles
