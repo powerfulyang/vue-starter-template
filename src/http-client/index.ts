@@ -1,5 +1,4 @@
 import type { Options } from 'ky'
-import { appendFormData } from '@/http-client/appendFormData'
 import log from '@/log'
 import { logRequest, logResponse } from '@/log/fetch'
 import ky from 'ky'
@@ -35,7 +34,7 @@ export async function request<T>(url: string, options?: RequestOptions): Promise
     const response = await instance(url, {
       ...restOptions,
       hooks: {
-        beforeRequest: debug ? [appendFormData(restOptions.body), logRequest] : [],
+        beforeRequest: debug ? [logRequest] : [],
         afterResponse: debug ? [logResponse] : [],
       },
     })

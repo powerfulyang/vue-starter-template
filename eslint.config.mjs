@@ -29,6 +29,7 @@ export default antfu(
     rules: {
       'antfu/no-top-level-await': 'off',
       'eslint-comments/no-unlimited-disable': 'off',
+      'no-console': 'off',
     },
   },
 )

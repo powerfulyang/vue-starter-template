@@ -1,4 +1,4 @@
-export function getBase64(file: File) {
+export function getBase64(file: Blob) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)

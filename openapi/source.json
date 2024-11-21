@@ -6,64 +6,31 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/api/hello": {
-      "post": {
-        "summary": "Test the hello API",
-        "description": "This endpoint accepts query parameters and a request body with the same structure.",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "query",
-            "required": false,
-            "description": "The name to be sent as a query parameter",
-            "schema": {
-              "type": "string",
-              "example": "test"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "Payload to send in the body",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "The name to be sent in the request body",
-                    "example": "test"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Hello, test!"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/upload": {
       "post": {
         "summary": "Upload an image file",
         "description": "This endpoint accepts an image file as multipart/form-data and returns the image in binary format.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "资源ID",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "资源类型",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["image", "video", "file"]
+            }
+          }
+        ],
         "requestBody": {
           "description": "Image file to upload",
           "required": true,
@@ -73,9 +40,16 @@
                 "type": "object",
                 "properties": {
                   "file": {
+                    "type": "array",
+                    "description": "The image files to be uploaded",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  },
+                  "text": {
                     "type": "string",
-                    "format": "binary",
-                    "description": "The image file to be uploaded"
+                    "description": "Text Message"
                   }
                 }
               }
