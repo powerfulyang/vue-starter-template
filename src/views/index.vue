@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { usePostUpload } from '@/orval/service'
-import { ref } from 'vue'
 
 const headers = new Headers()
 

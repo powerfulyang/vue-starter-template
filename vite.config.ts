@@ -4,6 +4,7 @@ import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import imagemin from 'unplugin-imagemin/vite'
 import Components from 'unplugin-vue-components/vite'
+import VueMacros from 'unplugin-vue-macros/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'vite'
@@ -27,24 +28,28 @@ export default defineConfig({
       projects: ['./tsconfig.app.json'],
       loose: true,
     }),
-    vue(),
-    vueJsx(),
+    VueMacros({
+      plugins: {
+        vue: vue(),
+        vueJsx: vueJsx(),
+        vueRouter: VueRouter({
+          root: '.',
+          // Add your own custom pages here. Just add it to the array. Example: 'src/welcome/pages'
+          routesFolder: [
+            {
+              src: 'src/views',
+              path: '/',
+            },
+          ],
+          dts: 'src/auto-typings/typed-router.d.ts',
+          extensions: ['.vue'],
+          exclude: ['**/components/**'],
+        }),
+      },
+    }),
     vueDevTools(),
     UnoCSS(),
     imagemin({}),
-    VueRouter({
-      root: '.',
-      // Add your own custom pages here. Just add it to the array. Example: 'src/welcome/pages'
-      routesFolder: [
-        {
-          src: 'src/views',
-          path: '/',
-        },
-      ],
-      dts: 'src/auto-typings/typed-router.d.ts',
-      extensions: ['.vue'],
-      exclude: ['**/components/**'],
-    }),
     Components({
       dirs: [
         'src/components',
