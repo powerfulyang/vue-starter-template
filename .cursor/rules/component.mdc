@@ -1,0 +1,16 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
++ 样式解决方案使用原子化 CSS 即 UnoCSS 
+
++ 图标使用 UnoCSS + Iconify
+例子:
+```html
+<div class="i-carbon-upload" />
+```
+这样的使用方式，需要使用 UnoCSS 的特殊样式类 `i-` 开头的样式类，来实现图标的使用。
+
++ 组件采用 Vue3 组合式 API 编写
+

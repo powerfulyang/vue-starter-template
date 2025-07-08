@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+### 发起 API 请求
+
+优先使用 src/orval 目录下的通过 orval.dev 生成的 @tanstack/vue-query 代码。

@@ -1,7 +1,7 @@
 import type { KyRequest, KyResponse, NormalizedOptions } from 'ky'
-import { getBase64 } from '@/utils/getBase64'
 import { isEmpty, omit } from 'lodash-es'
 import { parse } from 'qs'
+import { getBase64 } from '@/utils/getBase64'
 import logger from '.'
 
 export async function logRequest(

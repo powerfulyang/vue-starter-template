@@ -1,14 +1,24 @@
 <script lang="ts" setup>
-import { usePostUpload } from '@/orval/service'
+import { usePostGenerateSubtitle } from '@/orval/service'
 
 const headers = new Headers()
 
-const { isPending: isPendingUpload, mutate: mutateUpload } = usePostUpload({
-  request: {
-    debug: true,
-    headers,
+const { isPending: isPendingUpload, mutate: mutateUpload } = usePostGenerateSubtitle(
+  {
+    request: {
+      debug: true,
+      headers,
+    },
+    mutation: {
+      onSuccess: (data) => {
+        console.log(data)
+      },
+      onError: (error) => {
+        console.log(error)
+      },
+    },
   },
-})
+)
 
 const uploadFile1 = ref<File | null>(null)
 const uploadFile2 = ref<File | null>(null)
@@ -25,12 +35,8 @@ function submitUpload() {
   headers.set('custom-header', 'custom-value')
   mutateUpload({
     data: {
-      file: [uploadFile1.value!, uploadFile2.value!],
-      text: text.value,
-    },
-    params: {
-      id: '1',
-      type: 'file',
+      file: uploadFile1.value!,
+      enable_vocal_separation: false,
     },
   })
 }

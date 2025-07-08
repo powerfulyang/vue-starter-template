@@ -8,16 +8,19 @@ export default defineConfig({
       schemas: 'src/orval/models',
       client: 'vue-query',
       httpClient: 'fetch',
+      clean: true,
       override: {
         fetch: {
-          includeHttpStatusReturnType: false,
+          includeHttpResponseReturnType: false,
         },
         mutator: {
           path: './src/http-client/index.ts',
           name: 'request',
         },
+        // 由于后端 operationId 没有规范，所以通过 url 和 method 生成
         operationName: (operation, route: string, verb) => {
           // 去掉 route 的 prefix
+          // prefix 大多数情况为 /api，实际依照实际情况
           const name = route.replace('/api', '')
           // / _ - 转驼峰
           const camelCase = name.replace(/[/_-](\w)/g, (_, letter) => letter.toUpperCase())
@@ -29,7 +32,13 @@ export default defineConfig({
       },
     },
     input: {
-      target: './openapi/source.json',
+      target: 'https://subtitle.us4ever.com/whisper/openapi.json',
+      // 如果是旧版本的 swagger，需要开启 patch 和 warnOnly
+      // openapi 3.0 不需要开启
+      // converterOptions: {
+      //   patch: true,
+      //   warnOnly: true,
+      // },
     },
   },
 })

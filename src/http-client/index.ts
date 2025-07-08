@@ -1,7 +1,7 @@
 import type { Options } from 'ky'
+import ky from 'ky'
 import log from '@/log'
 import { logRequest, logResponse } from '@/log/fetch'
-import ky from 'ky'
 
 const instance = ky.create({
   hooks: {
