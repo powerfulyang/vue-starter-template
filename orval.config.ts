@@ -21,7 +21,7 @@ export default defineConfig({
         operationName: (operation, route: string, verb) => {
           // 去掉 route 的 prefix
           // prefix 大多数情况为 /api，实际依照实际情况
-          const name = route.replace('/api', '')
+          const name = route.replace(/^\/api/, '').replace(/\/$/, '')
           // / _ - 转驼峰
           const camelCase = name.replace(/[/_-](\w)/g, (_, letter) => letter.toUpperCase())
           //  只保留英文
@@ -32,7 +32,7 @@ export default defineConfig({
       },
     },
     input: {
-      target: 'https://subtitle.us4ever.com/whisper/openapi.json',
+      target: 'https://subtitle.us4ever.com/openapi.json',
       // 如果是旧版本的 swagger，需要开启 patch 和 warnOnly
       // openapi 3.0 不需要开启
       // converterOptions: {

@@ -1,6 +1,7 @@
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { codeInspectorPlugin } from 'code-inspector-plugin'
+import MotionResolver from 'motion-v/resolver'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import imagemin from 'unplugin-imagemin/vite'
@@ -66,7 +67,7 @@ export default defineConfig({
       directoryAsNamespace: true,
       dts: 'src/auto-typings/components.d.ts',
       resolvers: [
-        // ...
+        MotionResolver(),
       ],
     }),
     AutoImport({
