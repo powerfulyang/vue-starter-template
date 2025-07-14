@@ -12,7 +12,9 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --fix",
-    "orval": "orval"
+    "orval": "orval",
+    "postinstall": "npx simple-git-hooks",
+    "pre-commit": "npx lint-staged && npm run type-check"
   },
   "dependencies": {
     "@tanstack/vue-query": "^5.81.5",
@@ -74,9 +76,9 @@
     ]
   },
   "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
+    "pre-commit": "npm run pre-commit"
   },
   "lint-staged": {
-    "*": "eslint . --fix"
+    "*": "eslint --fix"
   }
 }
