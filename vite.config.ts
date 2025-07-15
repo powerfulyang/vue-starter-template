@@ -1,3 +1,4 @@
+import process from 'node:process'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { codeInspectorPlugin } from 'code-inspector-plugin'
@@ -20,6 +21,7 @@ export default defineConfig({
       //
       external: [],
     },
+    sourcemap: process.env.NODE_ENV !== 'production',
   },
   //
   optimizeDeps: {
